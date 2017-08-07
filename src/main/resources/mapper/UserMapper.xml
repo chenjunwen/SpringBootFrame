@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tuling.mapper.UserMapper">
+    <resultMap id="users" type="User">
+        <result column="name" property="name"></result>
+        <result column="pass_word" property="passWord"></result>
+    </resultMap>
+
+    <select id="getUsers" resultType="User">
+      SELECT * FROM users
+    </select>
+
+    <select id="login" resultType="User" parameterType="string">
+        SELECT * FROM users WHERE name = #{username}
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="User">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="User" >
+        UPDATE users
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="passWord!=null and passWord!=''">
+                pass_word=#{passWord},
+            </if>
+            <if test="state!=null and state!=''">
+                state=#{state},
+            </if>
+            <if test="lastLoginTime!=null">  <!-- 时间类型不需要 and state!=''-->
+                last_login_time=#{lastLoginTime},
+            </if>
+            <if test="createTime!=null">
+                create_time=#{createTime},
+            </if>
+            <if test="loginCount!=null and loginCount!=''">
+                login_count=#{loginCount},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+        INSERT INTO users VALUES (null,#{name},#{passWord},#{state},#{lastLoginTime},#{createTime},0);
+    </insert>
+
+    <delete id="delUser" parameterType="Integer">
+        DELETE FROM users WHERE  id = #{id}
+    </delete>
+</mapper>

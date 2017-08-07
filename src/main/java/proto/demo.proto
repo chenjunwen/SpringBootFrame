@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+package com.turing.modal;
+
+enum COMMAND {
+    LOGIN = 0;
+}
+
+//请求
+message Request {
+    COMMAND command = 1; //命令
+    int64 sequenceId = 2; //序列号
+    string sessionId = 3; //sessionId
+    google.protobuf.Any body = 4; //请求体
+}
+
+//返回
+message Response {
+    COMMAND command = 1; //命令
+    int64 sequenceId = 2; //序列号
+    int32 status = 3; //状态
+    string error = 4; //错误
+    google.protobuf.Any body = 5; //返回数据体
+}
+
+//登录
+message Login {
+    string userName = 1;
+    string passWord = 2;
+    string verificationCode = 3;
+}
+
+//登录返回
+message LoginResponse {
+    string sessionId = 1;
+}
