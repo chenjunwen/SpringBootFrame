@@ -4,8 +4,8 @@ jdk1.8+
 ## 运行
 >直接运行(需将mysql和redis打开)
     
-    $ ./mvnw spring-boot:Application.java    #linux
-    $ mvnw.cmd spring-boot:Application.java  #windows
+    $ ./mvnw spring-boot:run    #linux
+    $ mvnw.cmd spring-boot:run  #windows
     或者使用idea/eclipse启动Application.class
     
     
