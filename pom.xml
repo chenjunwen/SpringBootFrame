@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>turing</groupId>
-	<artifactId>front_service</artifactId>
+	<artifactId>SpringBootFrame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>front_service</name>
-	<description>trade前端接口</description>
+	<name>springBootFrame</name>
+	<description>springboot框架</description>
 
 	<!-- Spring Boot 启动父依赖 -->
 	<parent>
@@ -70,6 +70,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-redis</artifactId>
+			<version>1.4.7.RELEASE</version>
 		</dependency>
 
 		<!--Spring Boot Mybatis 依赖-->
@@ -153,15 +154,6 @@
 				<configuration>
 					<fork>true</fork>
 				</configuration>
-				<dependencies>
-					<!-- spring热部署-->
-					<!-- https://mvnrepository.com/artifact/org.springframework/springloaded -->
-					<dependency>
-						<groupId>org.springframework</groupId>
-						<artifactId>springloaded</artifactId>
-						<version>1.2.6.RELEASE</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

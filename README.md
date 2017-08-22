@@ -25,3 +25,7 @@ IDE 导入ide后等待maven依赖下载完成后执行
     ---------------templates                        #模板文件(freemarker)
     ---------------static                           #静态文件目录
     ---------------application.yml                  #应用主配置,数据源啥的都在这里
+
+## 配置springboot热启动
+1. 设置idea ctrl+alt+s 选择Build,Exection,Deployment->Compiler-> 勾选Build project automatically
+2. 设置idea ctrl+alt+shift+/  选择Registry -> 勾选compiler.automaket.allow.when.app.running
