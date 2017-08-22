@@ -1,6 +1,7 @@
 package com.tuling.service.impl;
 
 import com.tuling.modal.User;
+import com.tuling.service.AbstractService;
 import com.tuling.service.UserService;
 import com.tuling.utils.RedisUtil;
 import com.tuling.mapper.UserMapper;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by Administrator on 2017/8/1.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl  extends AbstractService<User> implements UserService {
 
     @Autowired
     UserMapper userMapper;
@@ -63,6 +64,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer delUser(Integer id) {
+        deleteById(id);//使用通用插件
         return userMapper.delUser(id);
     }
 
