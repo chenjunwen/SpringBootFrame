@@ -7,11 +7,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FrontServiceApplicationTests {
+public class ApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println("我好想你啊");
+		System.out.println("springFrameTest");
 	}
 
 }
