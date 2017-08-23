@@ -1,5 +1,7 @@
 package com.tuling.service.impl;
 
+import com.github.pagehelper.Page;
+import com.tuling.common.utils.Common;
 import com.tuling.common.utils.MD5Util;
 import com.tuling.common.utils.RedisUtil;
 import com.tuling.modal.User;
@@ -8,9 +10,12 @@ import com.tuling.service.UserService;
 import com.tuling.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/1.
@@ -25,9 +30,11 @@ public class UserServiceImpl  extends AbstractService<User> implements UserServi
     RedisUtil redis;
 
     @Override
-    public List<User> getUsers() {
-        redis.set("name","chenjunwen");
-        return findAll();
+    public Page<User> getUsers(Map<String,String> params) {
+        //redis.set("name","chenjunwen"); reids测试
+        Condition serviceCondition = Common.getServiceCondition(params, User.class);
+        List<User> orders = findByCondition(serviceCondition);
+        return (Page<User>) orders;
     }
 
     @Override

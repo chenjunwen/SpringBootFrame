@@ -1,5 +1,7 @@
 package com.tuling.controller;
-
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.tuling.common.utils.PageUitls;
 import com.tuling.common.validator.Assert;
 import com.tuling.common.validator.ValidatorUtil;
 import com.tuling.common.validator.group.AddGroup;
@@ -17,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/1.
@@ -65,7 +67,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     @ApiOperation(value="创建用户", notes="根据User对象创建用户")
     @ApiImplicitParam(name = "user", value = "用户详细实体user",dataTypeClass = User.class)
-    @ResponseBody
     public ResponseEntity<String> createUser(User user){
         ValidatorUtil.validateEntity(user, AddGroup.class);//校验用户实体字段，
         userService.createUser(user);
@@ -81,7 +82,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    @ResponseBody
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除对象")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
     public ResponseEntity<String> delUser(@PathVariable("id")Integer id){
@@ -90,7 +90,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    @ResponseBody
     @ApiOperation(value="获取用户详细信息", notes="根据url的id来获取用户详细信息")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int",paramType = "path")
     public ResponseEntity<User> getUserById(@PathVariable("id") Integer id){
@@ -100,9 +99,18 @@ public class UserController {
 
     @ApiOperation(value = "用户列表")
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseEntity<List<User>> getUserList(){
-        List<User> users = userService.getUsers();
-        return ResponseEntity.ok(users);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currPage",value = "当前页",paramType = "query"),
+            @ApiImplicitParam(name = "sort",value = "排序 ASC 或 DESC",required = false,example = "asc/desc",paramType = "query"),
+            @ApiImplicitParam(name = "orderBy",value = "排序字段",required = false,example = "createdTime",paramType = "query"),
+            @ApiImplicitParam(name = "pageSize",value = "每页显示条数",required = false,example = "createdTime",paramType = "query"),
+            //@ApiImplicitParam(name = "startTime",value = "开始时间",dataType = "long",paramType = "query"),如果时间类型则可以打开
+            //@ApiImplicitParam(name = "endTime",value = "结束时间",dataType = "long",paramType = "query"),
+            @ApiImplicitParam(name = "filter",value = "通用表过滤器。发送JSON键/值对，如<code>{“key”:“value”}</code>。", paramType = "query",dataTypeClass = JSON.class)
+
+    })
+    public ResponseEntity<PageUitls<User>> getUserList(@RequestParam @ApiParam(hidden = true) Map<String,String> params){
+        Page<User> page =  userService.getUsers(params);
+        return ResponseEntity.ok(new PageUitls<User>(page));
     }
 }

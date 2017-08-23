@@ -1,8 +1,10 @@
 package com.tuling.service;
 
+import com.github.pagehelper.Page;
 import com.tuling.modal.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/1.
@@ -12,7 +14,7 @@ public interface UserService {
      *  获取用户信息
      * @return
      */
-    List<User> getUsers();
+    Page<User> getUsers(Map<String,String> params);
 
     /**
      * 登录

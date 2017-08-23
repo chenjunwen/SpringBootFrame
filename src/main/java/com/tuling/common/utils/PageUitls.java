@@ -3,7 +3,7 @@ import com.github.pagehelper.Page;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 分页实体
+ * 分页实体用户返回数据
  * cjw 2017年8月23日14:15:46
  * 643969814@qq.com
  * @param <T>
@@ -24,7 +24,7 @@ public class PageUitls<T>{
     @ApiModelProperty("总页数")
     private Integer pages;
 
-    @ApiModelProperty("当前页")
+    @ApiModelProperty(value = "当前页",example = "1")
     private Integer currPage;
 
     @ApiModelProperty("每页条数")
