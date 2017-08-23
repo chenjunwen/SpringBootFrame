@@ -75,7 +75,7 @@ mybatis:
 # 通用mapper
 mapper:
     #mappers 多个接口时逗号隔开
-    mappers: com.tuling.utils.MyMapper
+    mappers: com.tuling.common.utils.MyMapper
     not-empty: false
     identity: MYSQL
 

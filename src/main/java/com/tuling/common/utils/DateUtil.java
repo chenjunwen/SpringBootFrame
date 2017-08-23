@@ -1,4 +1,6 @@
-package com.tuling.utils;
+package com.tuling.common.utils;
+
+import com.tuling.common.exception.RRException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -578,10 +580,20 @@ public class DateUtil {
      */
     public static String stampToDate(String s){
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long lt = new Long(s);
-        Date date = new Date(lt);
-        res = simpleDateFormat.format(date);
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long lt = new Long(s);
+            Date date = new Date(lt);
+            res = simpleDateFormat.format(date);
+        }catch (Exception e){
+            throw new RRException("请检查时间是否是时间搓类型");
+        }
+
         return res;
+    }
+
+    public static void main(String[] args) {
+        String s = stampToDate("1502964348398");
+        System.out.println(s);
     }
 }

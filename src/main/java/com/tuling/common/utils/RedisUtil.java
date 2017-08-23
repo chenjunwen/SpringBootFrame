@@ -1,4 +1,4 @@
-package com.tuling.utils;
+package com.tuling.common.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * redis工具类
+ * @author cjw
+ * @email chenjunwenchn@gmail.com
+ * @date 2017年8月23日14:17:19
+ */
 @Component
 public class RedisUtil {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());

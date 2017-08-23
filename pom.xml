@@ -144,6 +144,18 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.10</version>
 		</dependency>
+		<!-- string object 工具类 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.6</version>
+		</dependency>
+		<!--http://www.hutool.cn/ java工具集-->
+		<dependency>
+			<groupId>com.xiaoleilu</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

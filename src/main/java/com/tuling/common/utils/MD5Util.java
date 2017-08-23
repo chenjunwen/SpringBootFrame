@@ -1,4 +1,4 @@
-package com.tuling.utils;
+package com.tuling.common.utils;
 
 public class MD5Util {
     public static String getMD5(String value) {

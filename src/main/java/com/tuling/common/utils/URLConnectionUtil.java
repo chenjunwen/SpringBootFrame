@@ -1,4 +1,6 @@
-package com.tuling.utils;
+package com.tuling.common.utils;
+
+import sun.net.util.URLUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +12,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * url请求工具
+ * @author cjw
+ * @email chenjunwenchn@gmail.com
+ * @date 2017年8月23日14:18:07
+ */
 public class URLConnectionUtil {
      private static final String SERVLET_POST = "POST" ;
      private static final String SERVLET_GET = "GET" ;
@@ -56,12 +64,12 @@ public class URLConnectionUtil {
     		 URL url = new URL(urlStr);
              HttpURLConnection conn = (HttpURLConnection)url.openConnection();
              conn.setRequestMethod(SERVLET_POST);
-             Set<String> keys = headers.keySet();
-             if (keys!=null) {
-              	for (String key : keys) {
-              		conn.setRequestProperty(key, headers.get(key));
-              	}
-              }
+             if(headers!=null){
+				 Set<String> keys = headers.keySet();
+				 for (String key : keys) {
+					 conn.setRequestProperty(key, headers.get(key));
+				 }
+			 }
              conn.setDoInput(true);
              conn.setDoOutput(true);
              os = conn.getOutputStream();     
@@ -109,12 +117,12 @@ public class URLConnectionUtil {
 	         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	         conn.setRequestMethod(SERVLET_GET);
 	         conn.setRequestProperty("Content-Type","text/html; charset=UTF-8");
-	         Set<String> keys = headers.keySet();
-	         if (keys!=null) {
-	         	for (String key : keys) {
-	         		conn.setRequestProperty(key, headers.get(key));
-	         	}
-	         }
+	         if(headers!=null){
+				 Set<String> keys = headers.keySet();
+				 for (String key : keys) {
+					 conn.setRequestProperty(key, headers.get(key));
+				 }
+			 }
 	         conn.connect();
 	         br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	         String line ;
@@ -154,6 +162,12 @@ public class URLConnectionUtil {
 	         URL url = new URL(urlStr);
 	         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	         conn.setRequestMethod(SERVLET_PUT);
+			 if(headers!=null){
+				 Set<String> keys = headers.keySet();
+				 for (String key : keys) {
+					 conn.setRequestProperty(key, headers.get(key));
+				 }
+			 }
 	         conn.setDoInput(true);
 	         conn.setDoOutput(true);
 	         os = conn.getOutputStream();     
@@ -195,12 +209,13 @@ public class URLConnectionUtil {
 	         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	         conn.setDoOutput(true);
 	         conn.setRequestMethod(SERVLET_DELETE);
-	         Set<String> keys = headers.keySet();
-	         if (keys!=null) {
-	         	for (String key : keys) {
-	         		conn.setRequestProperty(key, headers.get(key));
-	         	}
-	         }
+			 if(headers!=null){
+				 Set<String> keys = headers.keySet();
+				 for (String key : keys) {
+					 conn.setRequestProperty(key, headers.get(key));
+				 }
+			 }
+
 	         if(conn.getResponseCode() == 204 || conn.getResponseCode() ==200){
 	            return true;
 	         }else{
