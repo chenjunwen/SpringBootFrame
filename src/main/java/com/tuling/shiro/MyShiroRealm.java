@@ -27,9 +27,7 @@ public class MyShiroRealm extends AuthorizingRealm{
         //存放登录信息
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        System.out.println(username);
         User user = userService.login(username);
-        System.out.println("user:"+user);
         if(user!=null){
             //放入shiro.调用CredentialsMatcher检验密码
             return new SimpleAuthenticationInfo(user, user.getPassWord(), getName());

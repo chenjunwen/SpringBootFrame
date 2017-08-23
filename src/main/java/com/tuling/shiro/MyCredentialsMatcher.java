@@ -1,6 +1,6 @@
 package com.tuling.shiro;
 
-import com.tuling.utils.MD5Util;
+import com.tuling.common.utils.MD5Util;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;

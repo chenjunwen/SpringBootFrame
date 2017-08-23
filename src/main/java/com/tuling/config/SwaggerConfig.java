@@ -32,10 +32,10 @@ public class SwaggerConfig  {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("DCM-API接口")
-                .termsOfServiceUrl("http://www.tuling.me")
-                .description("金融虚拟货币交易平台")
-                .contact(new Contact("君文","http://www.tuling.me","chenjunwenchen@qq.com"))
+                .title("SpringBootFrame测试接口")
+                .termsOfServiceUrl("https://github.com/18296456378")
+                .description("springboot集成swagger,druid,mybatis,mapper,shiro,redis,hibernateValidator,pagehelper框架")
+                .contact(new Contact("springBootFrame","https://github.com/18296456378","chenjunwenchen@qq.com"))
                 .version("1.0")
                 .build();
     }

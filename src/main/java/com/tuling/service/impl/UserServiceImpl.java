@@ -1,13 +1,15 @@
 package com.tuling.service.impl;
 
+import com.tuling.common.utils.MD5Util;
+import com.tuling.common.utils.RedisUtil;
 import com.tuling.modal.User;
 import com.tuling.service.AbstractService;
 import com.tuling.service.UserService;
-import com.tuling.utils.RedisUtil;
 import com.tuling.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,6 +54,9 @@ public class UserServiceImpl  extends AbstractService<User> implements UserServi
      */
     @Override
     public Integer createUser(User user) {
+        user.setCreateTime(new Date());
+        user.setPassWord(MD5Util.getMD5(user.getPassWord()));
+        user.setState(0);
         return userMapper.createUser(user);
     }
 

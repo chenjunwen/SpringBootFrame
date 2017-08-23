@@ -1,8 +1,9 @@
 package com.tuling.modal;
 
+import com.tuling.common.validator.group.AddGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -18,14 +19,16 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户id",required = false)
     private Integer id;
 
-    @ApiModelProperty(value = "用户名称")
+    @NotBlank(message = "用户名不能为空",groups = {AddGroup.class})
+    @ApiModelProperty(value = "用户名")
     private String name;
 
+    @NotBlank(message = "密码不能为空",groups = {AddGroup.class})
     @ApiModelProperty(value = "密码")
     private String passWord;
 
     @ApiModelProperty(value = "状态",example = "0表示未登录，1表示已登录")
-    private String state;
+    private Integer state;
 
     @ApiModelProperty(value = "最后登录时间",example = "2017-01-01 11:40:59")
     private Date lastLoginTime;
@@ -34,7 +37,8 @@ public class User implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "登录次数",required = false)
-    private int loginCount;
+    private Integer loginCount;
+
     public User(){
 
     }
@@ -67,11 +71,11 @@ public class User implements Serializable {
         this.passWord = passWord;
     }
 
-    public String getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
@@ -91,24 +95,11 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getLoginCount() {
+    public Integer getLoginCount() {
         return loginCount;
     }
 
-    public void setLoginCount(int loginCount) {
+    public void setLoginCount(Integer loginCount) {
         this.loginCount = loginCount;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", state='" + state + '\'' +
-                ", lastLoginTime=" + lastLoginTime +
-                ", createTime=" + createTime +
-                ", loginCount=" + loginCount +
-                '}';
     }
 }
