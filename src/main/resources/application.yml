@@ -3,7 +3,7 @@ logging:
     level:
         root: error
         java: ERROR
-    file: log.log
+    file: /home/logs/log.log
 ## Server
 server:
   port: 80

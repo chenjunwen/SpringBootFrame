@@ -1,38 +1,32 @@
 syntax = "proto3";
+//图灵DCM系统
+option java_package = "com.tuling.modal";//package com.turing.projo;
+option java_outer_classname = "EntrustPro";
+//protoc.exe -I=proto的输入目录 --java_out=java类输出目录 proto的输入目录包括包括proto文件
 
-import "google/protobuf/any.proto";
-
-package com.turing.modal;
-
-enum COMMAND {
-    LOGIN = 0;
+//委托类型
+enum EntrustType {
+    NON_TYPE=0;
+    BUY = 1; //买入
+    SELL = 2; //卖出
+    SHORT = 3;
+    COVER = 4;
 }
 
-//请求
-message Request {
-    COMMAND command = 1; //命令
-    int64 sequenceId = 2; //序列号
-    string sessionId = 3; //sessionId
-    google.protobuf.Any body = 4; //请求体
+//委托方法
+enum EntrustMethod {
+    NON_METHOD = 0;
+    ORDER = 1; //下单
+    CANCEL = 2; //撤单
 }
 
-//返回
-message Response {
-    COMMAND command = 1; //命令
-    int64 sequenceId = 2; //序列号
-    int32 status = 3; //状态
-    string error = 4; //错误
-    google.protobuf.Any body = 5; //返回数据体
-}
-
-//登录
-message Login {
-    string userName = 1;
-    string passWord = 2;
-    string verificationCode = 3;
-}
-
-//登录返回
-message LoginResponse {
-    string sessionId = 1;
+//委托
+message Entrust {
+    string orderId = 1; //订单ID
+    string product = 2; //产品ID
+    EntrustMethod entrustMethod = 3; //交易类型
+    EntrustType entrustType = 4; //交易类型
+    double price = 5; //价格
+    double quantity = 6; //数量
+    int64 time = 7; //时间
 }

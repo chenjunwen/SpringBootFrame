@@ -5,6 +5,7 @@ import com.tuling.service.UserService;
 import com.tuling.utils.MD5Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -12,14 +13,13 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/1.
@@ -27,7 +27,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/api/user")
-@Api("用户")
+@Api(tags = "用户",description = "详情")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -35,8 +35,11 @@ public class UserController {
     UserService userService;
 
     @ApiOperation(value = "登录",notes = "登录接口啊啊")
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
-    public String login(RedirectAttributes redirectAttributes){
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name",value = "用户名"),@ApiImplicitParam(name = "password",value = "用户密码")
+    })
+    public String login(String name,String password, RedirectAttributes redirectAttributes){
         User user = new User("图灵","abcthm3b10");
         String username = user.getName();
         //模拟登录
@@ -97,10 +100,8 @@ public class UserController {
 
     @ApiOperation(value="更新用户详细信息", notes="根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int")
-    @RequestMapping(value="/{id}",method = RequestMethod.PUT)
-    public String updateUser(@PathVariable Integer id){
-        User user = new User();
-        user.setId(id);
+    @RequestMapping(method = RequestMethod.PUT)
+    public String updateUser(User user){
         user.setLastLoginTime(new Date());
         userService.updateUser(user);
         return "已更新";
@@ -122,5 +123,12 @@ public class UserController {
     public User getUserById(@PathVariable("id") Integer id){
         User user = userService.getUserById(id);
         return user;
+    }
+
+    @ApiOperation(value = "用户列表")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getUserList(){
+        List<User> users = userService.getUsers();
+        return ResponseEntity.ok(users);
     }
 }

@@ -1,19 +1,19 @@
 package com.tuling.mapper;
 
 import com.tuling.modal.User;
+import com.tuling.utils.MyMapper;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/1.
  */
-public interface UserMapper {
+public interface UserMapper extends MyMapper<User>{
     /**
      *  获取用户信息
      * @return
      */
     List<User> getUsers();
-
     /**
      * 登录
      * @param name

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/8/1.
  */
-public interface UserService{
+public interface UserService {
     /**
      *  获取用户信息
      * @return

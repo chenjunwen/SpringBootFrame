@@ -24,9 +24,8 @@ public class UserServiceImpl  extends AbstractService<User> implements UserServi
 
     @Override
     public List<User> getUsers() {
-        List<User> users = userMapper.getUsers();
         redis.set("name","chenjunwen");
-        return users;
+        return findAll();
     }
 
     @Override

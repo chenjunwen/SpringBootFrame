@@ -3,6 +3,8 @@ package com.tuling.modal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +12,9 @@ import java.util.Date;
  * Created by Administrator on 2017/8/1.
  */
 @ApiModel(value = "用户实体类")
+@Table(name = "users")
 public class User implements Serializable {
+    @Id
     @ApiModelProperty(value = "用户id",required = false)
     private Integer id;
 
@@ -29,7 +33,7 @@ public class User implements Serializable {
     @ApiModelProperty("创建时间")
     private Date createTime;
 
-    @ApiModelProperty("登录次数")
+    @ApiModelProperty(value = "登录次数",required = false)
     private int loginCount;
     public User(){
 
