@@ -13,6 +13,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.LinkedHashMap;
 
@@ -50,6 +51,7 @@ public class ShiroConfig {
     /**
      * 配置核心安全事务管理器
      * @param authRealm
+     * 不指定名字的话，自动创建一个方法名第一个字母小写的bean * @Bean(name = "securityManager") * @return
      * @return
      */
     @Bean(name="securityManager")
@@ -84,9 +86,10 @@ public class ShiroConfig {
         return bean;
     }
 
+
     /**
+     * Shiro生命周期处理器 * @return
      * 保证实现了Shiro内部lifecycle函数的bean执行
-     * @return
      */
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
@@ -105,18 +108,18 @@ public class ShiroConfig {
     }
 
     /**
-     * 开启shiro注解
-     * @param securityManager
-     * @return
+     * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,
+     * 并在必要时进行安全逻辑验证 * 配置以下两个bean(DefaultAdvisorAutoProxyCreator(可选)和AuthorizationAttributeSourceAdvisor)即可实现此功能 * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager")SecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
         aasa.setSecurityManager(securityManager);
         return aasa;
     }
 
     @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
         DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
         proxyCreator.setProxyTargetClass(true);
