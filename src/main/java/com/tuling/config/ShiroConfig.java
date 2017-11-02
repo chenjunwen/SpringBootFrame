@@ -9,9 +9,12 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.LinkedHashMap;
 
 /**
  * Created by Administrator on 2017/8/2.
@@ -66,7 +69,7 @@ public class ShiroConfig {
         ShiroFilterFactoryBean bean=new ShiroFilterFactoryBean();
         bean.setSecurityManager(manager);
         //配置登录的url和登录成功的url和无权限
-        /*bean.setLoginUrl("api/user/login");
+        bean.setLoginUrl("api/user/login");
         bean.setSuccessUrl("/index");
         bean.setUnauthorizedUrl("/403");
         System.out.println("shiro:过滤");
@@ -74,10 +77,10 @@ public class ShiroConfig {
         LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
         filterChainDefinitionMap.put("/api/user/logout", "anon"); //表示可以匿名访问
         filterChainDefinitionMap.put("/druid*//*","anon");
-        filterChainDefinitionMap.put("/fs*//*","anon");*/
-        //filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
+        filterChainDefinitionMap.put("/fs*//*","anon");
+        filterChainDefinitionMap.put("/*", "authc");//表示需要认证才可以访问
 
-        ///bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
 
@@ -112,4 +115,12 @@ public class ShiroConfig {
         aasa.setSecurityManager(securityManager);
         return aasa;
     }
+
+    @Bean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator proxyCreator = new DefaultAdvisorAutoProxyCreator();
+        proxyCreator.setProxyTargetClass(true);
+        return proxyCreator;
+    }
+
 }
