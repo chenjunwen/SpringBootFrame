@@ -21,7 +21,7 @@ IDE 导入ide后等待maven依赖下载完成后执行
     --------------------Application.java                    #项目启动类,直接运行启动项目
     ----------resources
     ---------------mappers                          #mybatis mapper配置文件
-    ---------------trade.sql                        #系统首次启动执行的sql
+    ---------------trade.sql                        #系统首次启动执行的sql
     ---------------templates                        #模板文件(freemarker)
     ---------------static                           #静态文件目录
     ---------------application.yml                  #应用主配置,数据源啥的都在这里
